@@ -1,0 +1,40 @@
+{
+    "id": "player",
+    "width": 48,
+    "height": 48,
+    "animations": {
+        "idle_right": {
+            "length": 1,
+            "row": 0,
+            "column": 0
+        },
+        "run_right": {
+            "length": 3,
+            "row": 0,
+            "column": 1
+        },
+        "jump_right": {
+            "length": 3,
+            "row": 0,
+            "column": 4
+        },
+        "idle_left": {
+            "length": 1,
+            "row": 0,
+            "column": 0,
+            "flipX": true
+        },
+        "run_left": {
+            "length": 3,
+            "row": 0,
+            "column": 1,
+            "flipX": true
+        },
+        "jump_left": {
+            "length": 3,
+            "row": 0,
+            "column": 4,
+            "flipX": true
+        }
+    }
+}
