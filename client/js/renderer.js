@@ -49,12 +49,14 @@ define(function() {
                     y = frame.y * scale,
                     w = sprite.width * scale,
                     h = sprite.height * scale,
-                    dx = entity.x * scale,
-                    dy = entity.y * scale,
+                    dx = entity.x - w/2 * scale,
+                    dy = entity.y - h * scale,
                     dw = w,
                     dh = h;
 
 
+                this.context.fillRect(-2, -100, 4, 200);
+                this.context.fillRect(-100, -2, 200, 4);
                 this.context.save();
 
                 if (anim.flipX) {
@@ -64,7 +66,6 @@ define(function() {
                     this.context.translate(dx, dy);
                 }
 
-
                 this.context.drawImage(sprite.image, x, y, w, h, 0, 0, dw, dh);
 
                 this.context.restore();
@@ -72,7 +73,8 @@ define(function() {
         },
 
         setCameraView: function(ctx) {
-            ctx.translate(this.game.player.x, this.canvas.height / 2 - this.game.player.height / 2 - this.game.player.y);
+            // ctx.translate(this.canvas.width / 2 - this.game.player.x , this.canvas.height / 2 - this.game.player.y);
+            ctx.translate(960/2, 540/2);
         },
 
         clearScreen: function(ctx) {
