@@ -1,10 +1,27 @@
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          window.oRequestAnimationFrame      ||
-          window.msRequestAnimationFrame     ||
-          function(/* function */ callback, /* DOMElement */ element){
-            window.setTimeout(callback, 1000 / 60);
-          };
-})();
+define(function() {
+
+    return {
+        load: function(url, callback) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState < 4) {
+                    return;
+                }
+
+                if (xhr.status !== 200) {
+                    return;
+                }
+
+                if (xhr.readyState === 4) {
+                    callback(xhr.responseText);
+                }
+            };
+
+            xhr.open('GET', url, true);
+            xhr.send('');
+
+        }
+    };
+
+});

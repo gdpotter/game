@@ -1,4 +1,4 @@
-define(['renderer', 'updater', 'player', 'sprite'], function(Renderer, Updater, Player, Sprite) {
+define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Updater, Player, Sprite, Map) {
 
     var Game = Class.extend({
         init: function(canvas) {
@@ -53,12 +53,19 @@ define(['renderer', 'updater', 'player', 'sprite'], function(Renderer, Updater, 
             });
             this.player.setSprite(playerSprite);
             this.player.setAnimation('idle_right');
+            this.loadMap();
             // END REMOVE
 
             this.keysDown = {};
             this.keyCount = 1;
 
             this.entities = {};
+        },
+
+        loadMap: function() {
+            this.map = new Map(this);
+
+            this.map.loadMap('world.json');
         },
 
         tick: function() {
@@ -71,7 +78,7 @@ define(['renderer', 'updater', 'player', 'sprite'], function(Renderer, Updater, 
             }
 
             if (this.started) {
-                requestAnimFrame(this.tick.bind(this));
+                requestAnimFrame(this.tick.bind(this), this.canvas);
             }
         },
 

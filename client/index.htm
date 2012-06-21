@@ -4,13 +4,23 @@
     <title>Game</title>
     <style type="text/css">
         canvas {
-        border: 1px solid black;
-        margin: 0 auto;
-    }
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+
+        .blah {
+            border: 1px solid black;
+            width: 480px;
+            height: 270px;
+            position: absolute;
+            top: 8px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <canvas id="game-canvas" width="960" height="540"></canvas>
+    <div class="blah"></div>
 
     <script data-main="js/home" src="js/lib/require.js"></script>
 </body>
