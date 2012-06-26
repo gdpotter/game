@@ -26,6 +26,31 @@ define(['camera'], function(Camera) {
             this.drawWorld();
             this.drawEntities();
 
+            // Draw selection:
+            var player = this.game.player;
+            if (player.selX || player.selY) {
+                var selX = 0;
+                var selY = -48;
+                var playerX;
+                if (player.selX == -1) {
+                    selX = Math.floor(player.x/24) * 24 - 36;
+                } else if (player.selX == 1) {
+                    selX = Math.ceil(player.x/24) * 24 + 12;
+                } else {
+                    selX = Math.floor(player.x/24) * 24 - 12;
+                }
+
+                if (player.selY == 1) {
+                    selY = selY - 24;
+                } else if (player.selY == -1) {
+                    selY = selY + 24;
+                    if (!player.selX) {
+                        selY = selY + 24;
+                    }
+                }
+                this.context.fillRect(selX, selY, 24, 24);
+            }
+
             this.context.restore();
 
             this.calcFPS();

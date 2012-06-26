@@ -24,6 +24,26 @@ define(function() {
                 this.game.player.movementX = null;
             }
 
+            // Jump
+            //if (this.game.getAndRemoveKey(32)) {
+            //    this.game.player.jump = true;
+            //}
+
+            // Selection
+            this.game.player.selY = 0;
+            this.game.player.selX = 0;
+            if (this.game.getKey('73') > this.game.getKey('75')) {
+                this.game.player.selY = 1;
+            } else if (this.game.getKey('75') > this.game.getKey('73')) {
+                this.game.player.selY = -1;
+            }
+            if (this.game.getKey('76') > this.game.getKey('74')) {
+                this.game.player.selX = 1;
+            } else if (this.game.getKey('74') > this.game.getKey('76')) {
+                this.game.player.selX = -1;
+            }
+
+
         },
 
         updateCharacters: function() {
