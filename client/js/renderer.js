@@ -26,6 +26,8 @@ define(['camera'], function(Camera) {
             this.drawWorld();
             this.drawEntities();
 
+            // this.game.updater.update();
+
             this.context.restore();
 
             this.calcFPS();
@@ -40,15 +42,20 @@ define(['camera'], function(Camera) {
 
             cam.forEachVisibleTilePosition(function(x, y) {
                 var tile = self.game.map.getTile(x, y);
-                var color = "red";
-                if (tile == 1) {
-                    color = "brown";
-                } else if (tile == 2) {
-                    color = "green";
-                }
+
                 if (tile) {
-                    self.context.fillStyle = color;
-                    self.context.fillRect(x * cam.tileW, y * cam.tileH, cam.tileW, cam.tileH);
+                    var scale = 1,
+                        tileX = tile.x * scale,
+                        tileY = tile.y * scale,
+                        w = 24 * scale,
+                        h = 24 * scale,
+                        image = tile.tileset.image,
+                        dx = x * 24 * scale,
+                        dy = y * 24 * scale;
+
+                    self.context.drawImage(image, tileX, tileY, w, h, dx, dy, w, w);
+                    //self.context.fillStyle = color;
+                    //self.context.fillRect(x * cam.tileW, y * cam.tileH, cam.tileW, cam.tileH);
                 }
             });
         },

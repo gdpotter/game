@@ -103,9 +103,17 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
             callback(this.player);
         },
 
-        getKey: function(key) {
+        forEachEntity: function(callback) {
+            callback(this.player);
+        },
+
+        getKey: function(key, remove) {
             if (this.keysDown[key]) {
-                return this.keysDown[key];
+                var keyNum = this.keysDown[key];
+                if (remove) {
+                    delete this.keysDown[key];
+                }
+                return keyNum;
             } else {
                 return -1;
             }

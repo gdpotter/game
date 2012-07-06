@@ -6,6 +6,9 @@ define(function() {
             this.tileset = tileset;
             this.row = row;
             this.column = column;
+
+            this.x = this.column * 24;
+            this.y = this.row * 24;
         }
     });
 

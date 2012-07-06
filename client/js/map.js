@@ -8,6 +8,7 @@ define(['tileset', 'tile', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Ti
 
         loadMap: function() {
             var ts = new Tileset();
+            ts.loadJSON();
             this.tiles = {
                 'air': new Tile('air', ts, 3, 0),
                 'grass': new Tile('grass', ts, 3, 1),
@@ -26,6 +27,19 @@ define(['tileset', 'tile', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Ti
             };
         },
 
+        isSolid: function(x, y) {
+            var chunkX = Math.floor(x / 16);
+            var chunkY = Math.floor(y / 16);
+
+            var tileX = x - (chunkX * 16);
+            var tileY = y - (chunkY * 16);
+
+            var tilePosition = (tileX + (16 * tileY));
+
+            var chunk = this.getChunk(chunkX, chunkY);
+            return chunk[tilePosition];
+        },
+
         getTile: function(x, y) {
             var chunkX = Math.floor(x / 16);
             var chunkY = Math.floor(y / 16);
@@ -38,9 +52,7 @@ define(['tileset', 'tile', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Ti
             var chunk = this.getChunk(chunkX, chunkY);
 
             if (chunk) {
-                return chunk[tilePosition];
-            } else {
-                return -1;
+                return this.tiles[this.tileIds[chunk[tilePosition]]];
             }
 
         },

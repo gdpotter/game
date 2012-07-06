@@ -15,7 +15,7 @@ define(function() {
             var self = this;
 
             this.image = new Image();
-            this.image.src = this.filepath;
+            this.image.src = this.filePath;
 
             this.image.onload = function() {
                 self.isLoaded = true;
