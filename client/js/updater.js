@@ -80,11 +80,15 @@ define(function() {
                 }
             }
 
-            c.setAnimation(c.state + '_' + (c.movementX || 'right'));
-
             if (c.jumping && c.velocityY === 0) {
                 c.velocityY = -750;
             }
+
+            if (c.jumping) {
+                c.state = 'jump';
+            }
+
+            c.setAnimation(c.state + '_' + (c.movementX || 'right'));
 
             // if (c.jumping) {
                 c.velocityY = c.velocityY + (c.gravity * tick);

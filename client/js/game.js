@@ -88,7 +88,7 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
         },
 
         keyDown: function(event) {
-            if (this.started) {
+            if (this.started && this.keysDown[event.which] != -1) {
                 this.keysDown[event.which] = this.keyCount++;
             }
         },
@@ -111,7 +111,7 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
             if (this.keysDown[key]) {
                 var keyNum = this.keysDown[key];
                 if (remove) {
-                    delete this.keysDown[key];
+                    this.keysDown[key] = -1;
                 }
                 return keyNum;
             } else {
