@@ -11,6 +11,10 @@ define(['camera'], function(Camera) {
             this.initFPS();
             this.lastTime = new Date();
             this.realFPS = this.FPS;
+
+            this.worldCache = {
+
+            };
         },
 
         initFPS: function() {
@@ -26,8 +30,6 @@ define(['camera'], function(Camera) {
             this.drawWorld();
             this.drawEntities();
 
-            // this.game.updater.update();
-
             this.context.restore();
 
             this.calcFPS();
@@ -40,7 +42,42 @@ define(['camera'], function(Camera) {
 
             this.context.fillRect(0, 100, 0, 100);
 
-            cam.forEachVisibleTilePosition(function(x, y) {
+            var chunkSize = 24 * 16;
+
+            for (var chunk in this.game.loadedChunks) {
+                var pos = chunk.split(',');
+                pos[0] = parseInt(pos[0], 10);
+                pos[1] = parseInt(pos[1], 10);
+                if (!this.worldCache[chunk]) {
+                    var cacheCanvas = document.createElement('canvas');
+                    cacheCanvas.width = chunkSize;
+                    cacheCanvas.height = chunkSize;
+                    var cacheContext = cacheCanvas.getContext('2d');
+                    for (var x = 0; x < 16; x++) {
+                        for (var y = 0; y < 16; y++) {
+                            var tile = self.game.map.getTile(x + (pos[0] * 16), y + (pos[1] * 16));
+
+                            if (tile) {
+                                var scale = 1,
+                                    tileX = tile.x * scale,
+                                    tileY = tile.y * scale,
+                                    w = 24 * scale,
+                                    h = 24 * scale,
+                                    image = tile.tileset.image,
+                                    dx = x * 24 * scale,
+                                    dy = y * 24 * scale;
+
+                                cacheContext.drawImage(image, tileX, tileY, w, h, dx, dy, w, w);
+                            }
+                        }
+                    }
+                    this.worldCache[chunk] = cacheCanvas;
+                }
+
+                this.context.drawImage(this.worldCache[chunk], pos[0] * chunkSize, pos[1] * chunkSize);
+            }
+
+            /*cam.forEachVisibleTilePosition(function(x, y) {
                 var tile = self.game.map.getTile(x, y);
 
                 if (tile) {
@@ -57,7 +94,7 @@ define(['camera'], function(Camera) {
                     //self.context.fillStyle = color;
                     //self.context.fillRect(x * cam.tileW, y * cam.tileH, cam.tileW, cam.tileH);
                 }
-            });
+            });*/
         },
 
         drawEntities: function() {

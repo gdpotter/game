@@ -22,6 +22,7 @@ define(['entity'], function(Entity) {
         },
 
         update: function(dt) {
+            dt = 50;
             var tick = 1/dt;
 
             if (this.movementX == 'left') {

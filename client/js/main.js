@@ -26,7 +26,9 @@ define(function() {
                 game.keyUp(event);
             });
 
-            game.start();
+            setTimeout(function() {
+                game.start(); // Give it a sec to load the map :)
+            }, 100);
             window.game = game;
         });
     };

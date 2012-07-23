@@ -8,6 +8,7 @@ define(function() {
         update: function() {
             this.processControlInput();
             this.updateCharacters();
+            this.game.loadChunks();
             this.updateAnimations();
         },
 
@@ -44,6 +45,20 @@ define(function() {
                 w: 20
             };
 
+            // var leftTile = Math.floor(bb.x / 24);
+            // var rightTile = Math.ceil((bb.x + bb.w) / 24) - 1;
+            // var topTile = Math.floor(bb.y / 24);
+            // var bottomTile = Math.ceil((bb.y + bb.h) / 24) - 1;
+
+            // for (var y = topTile; y <= bottomTile; y++) {
+            //     for (var x = leftTile; x <= rightTile; x++) {
+            //         if (this.game.map.isSolid(x, y)) {
+            //             if (c.velocityY >= 0) { // If we are falling
+
+            //             }
+            //         }
+            //     }
+            // }
 
             var b1x = Math.floor(bb.x / 24); // First below block position
             var b2x = Math.floor((bb.x + bb.w - 1) / 24); // Second below block position

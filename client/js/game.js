@@ -9,6 +9,8 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
 
             this.player = new Player();
 
+            this.loadedChunks = {};
+
             // TODO: REMOVE
             var playerSprite = new Sprite("player");
             playerSprite.loadJSON({
@@ -54,6 +56,7 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
             this.player.setSprite(playerSprite);
             this.player.setAnimation('idle_right');
             this.loadMap();
+            this.loadChunks();
             // END REMOVE
 
             this.keysDown = {};
@@ -68,22 +71,46 @@ define(['renderer', 'updater', 'player', 'sprite', 'map'], function(Renderer, Up
             this.map.loadMap('world.json');
         },
 
+        loadChunks: function() {
+            var playerChunkX = Math.floor(this.player.x / (24 * 16));
+            var playerChunkY = Math.floor(this.player.y / (24 * 16));
+
+            // Load 25 chunks
+            this.loadedChunks = {};
+            var currentTime = new Date().getTime();
+            for (var x = playerChunkX - 2; x <= playerChunkX + 2; x++) {
+                for (var y = playerChunkY - 2; y <= playerChunkY + 2; y++) {
+                    this.loadedChunks[x + ',' + y] = currentTime;
+                }
+            }
+
+            /*// Kill off old chunks if neccessary
+            var chunkArray = [];
+            for (var chunk in this.loadedChunks) {
+                chunkArray.push([chunk, this.loadedChunks[chunk]]);
+            }*/
+        },
+
         tick: function() {
 
-            this.currentTime = new Date().getTime();
+            this.renderer.renderFrame();
 
             if (this.started) {
-                this.updater.update();
-                this.renderer.renderFrame();
+                requestAnimationFrame(this.tick.bind(this), this.canvas);
             }
+        },
 
-            if (this.started) {
-                requestAnimFrame(this.tick.bind(this), this.canvas);
-            }
+        startPhysics: function() {
+            var self = this;
+            this.physicsLoop = setInterval(function() {
+                self.currentTime = new Date().getTime();
+                self.updater.update();
+            }, 15);
         },
 
         start: function() {
             this.started = true;
+            this.startPhysics();
             this.tick();
         },
 
