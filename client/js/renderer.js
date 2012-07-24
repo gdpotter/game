@@ -118,8 +118,8 @@ define(['camera'], function(Camera) {
                     y = frame.y * scale,
                     w = sprite.width * scale,
                     h = sprite.height * scale,
-                    dx = (entity.x - sprite.width/2) * scale,
-                    dy = (entity.y - sprite.height) * scale,
+                    dx = ((entity.x - sprite.width/2) * scale - 0.5) << 0, // This is a hack for a
+                    dy = ((entity.y - sprite.height) * scale - 0.5) << 0,  // faster Math.round
                     dw = w,
                     dh = h;
 
