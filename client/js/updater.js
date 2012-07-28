@@ -81,7 +81,6 @@ define(function() {
                         if (c.velocityY >= 0) { // If we are falling
                             var depth = getIntersectionDepth(x, y, bb);
                             if (depth[0] !== 0 && depth[1] !== 0) {
-                                // console.log(depth);
                                 var absDepthX = Math.abs(depth[0]);
                                 var absDepthY = Math.abs(depth[1]);
 
@@ -91,7 +90,6 @@ define(function() {
                                     c.jumping = false;
                                     c.velocityY = 0;
                                 } else if (absDepthX >= 1) {
-                                    console.log(depth);
                                     c.x = c.x - depth[0];
                                     c.velocityX = 0;
                                 }
