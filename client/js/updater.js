@@ -65,8 +65,8 @@ define(function() {
         detectCollisions: function(c) {
             var bb = {
                 x: c.x - 10,
-                y: c.y - 48,
-                h: 48,
+                y: c.y - 40,
+                h: 40,
                 w: 20
             };
 
@@ -78,7 +78,7 @@ define(function() {
             for (var y = topTile; y <= bottomTile; y++) {
                 for (var x = leftTile; x <= rightTile; x++) {
                     if (this.game.map.isSolid(x, y)) {
-                        if (c.velocityY >= 0) { // If we are falling
+                        if (c.velocityY >= 0 || true) { // If we are falling
                             var depth = getIntersectionDepth(x, y, bb);
                             if (depth[0] !== 0 && depth[1] !== 0) {
                                 var absDepthX = Math.abs(depth[0]);

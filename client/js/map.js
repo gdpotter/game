@@ -1,9 +1,11 @@
-define(['tileset', 'tile', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Tile, Alea, SimplexNoise) {
+define(['tileset', 'tile', 'worldGenerator', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Tile, WorldGenerator, Alea, SimplexNoise) {
 
     var Map = Class.extend({
         init: function(game) {
             this.game = game;
             this.seed = '156184011';
+
+            this.worldGenerator = new WorldGenerator(this.seed);
         },
 
         loadMap: function() {
@@ -58,43 +60,11 @@ define(['tileset', 'tile', 'lib/alea', 'lib/simplexNoise'], function(Tileset, Ti
         },
 
         getChunk: function(x, y) {
-            if (!this.chunks[x + ',' + y]) {
-                this.generateChunk(x, y);
+            var c = x + ',' + y;
+            if (!this.chunks[c]) {
+                this.chunks[c] = this.worldGenerator.generateChunk(x, y);
             }
-            return this.chunks[x + ',' + y];
-        },
-
-        generateChunk: function(chunkX, chunkY) {
-            console.log('Generating ' + chunkX + ', ' + chunkY);
-            var heights = [];
-            var i = 0;
-            var chunk = [];
-
-            var noise = new SimplexNoise({
-                random: new Alea(this.seed)
-            });
-
-            for (i=0; i < 16; i++) {
-                heights[i] = Math.round(noise.noise(i/16 + chunkX, 0) * 4);
-            }
-
-            var x;
-            var y = chunkY * 16;
-            for (i=0; i < 256; i++) {
-                x = i % 16;
-                if (x === 0) {
-                    y++;
-                }
-                if (y < heights[x]) {
-                    chunk[i] = 0;
-                } else if (y == heights[x]) {
-                    chunk[i] = 2;
-                } else {
-                    chunk[i] = 1;
-                }
-            }
-
-            this.chunks[chunkX + ',' + chunkY] = chunk;
+            return this.chunks[c];
         }
     });
 
