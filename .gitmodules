@@ -1,0 +1,3 @@
+[submodule "client/js/noise"]
+	path = client/js/noise
+	url = git@github.com:gdpotter/libnoise.js.git
