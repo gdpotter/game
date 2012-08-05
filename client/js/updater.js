@@ -65,8 +65,8 @@ define(function() {
         detectCollisions: function(c) {
             var bb = {
                 x: c.x - 10,
-                y: c.y - 40,
-                h: 40,
+                y: c.y - 48,
+                h: 48,
                 w: 20
             };
 
