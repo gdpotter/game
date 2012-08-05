@@ -70,7 +70,7 @@ define(['entity'], function(Entity) {
             }
 
             // Gravity
-            this.velocityY = this.velocityY + (this.gravity * tick);
+            this.velocityY = Math.min(1000, this.velocityY + (this.gravity * tick));
 
             this.setAnimation(this.state + '_' + (this.direction || 'right'));
 
