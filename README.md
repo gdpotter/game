@@ -7,6 +7,6 @@ interesting landscapes. This project (unfortunately) has been somewhat abandoned
 I do intend to continue working on it sometime in the future.
 
 To try it out:
-  git submodule init
+  ```git submodule init
   git submodule update
-  open client/index.htm
+  open client/index.htm```
