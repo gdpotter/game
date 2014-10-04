@@ -10,5 +10,5 @@ To try it out:
 ```
 git submodule init
 git submodule update
-open client/index.htm
 ```
+and then open ```client/index.htm```
